@@ -1,208 +1,348 @@
-body{
+body {
     background: #EFEFEF;
-    margin:0;/**body默认的外边距去掉**/
+    margin: 0;
+    /**body默认的外边距去掉**/
 }
-a{
-    color:inherit;  /**继承父元素的颜色**/
+
+a {
+    color: inherit;
+    /**继承父元素的颜色**/
     text-decoration: none;
 }
+
+
 /**h1,h2,h3,h4,h5,h6,p{**/
-*{
+
+* {
     margin: 0;
     padding: 0;
 }
-hr{
+
+hr {
     height: 0;
-    border:none;
+    border: none;
     border-top: 1px solid #DEDEDE;
 }
-ul,ol{
+
+ul,
+ol {
     list-style: none;
 }
-h1,h2,h3,h4,h5,h6{
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: normal;
 }
-.clearfix::after{/**清除浮动**/
-    content:'';
+
+.clearfix::after {
+    /**清除浮动**/
+    content: '';
     display: block;
-    clear:both;
+    clear: both;
 }
-.topNavBar{
+
+.topNavBar {
     /**padding-top:20px;本来12px，8px是补全去掉的默认body外边距的顶部8px**/
     /** padding-bottom:20px;和上边距一致**/
     /**padding-left: 16px;补全去掉的默认body外边距的左右边距16px**/
     /**padding-right: 16px;**/
-   /** padding: 20px 16px 20px 16px;上右下左**/
-    padding: 20px 0 20px 0;/**使topnavbar不超过平面范围**/
-    position:fixed;
-    top:0;
-    left:0;/**这三行使topnavbar相对于平面固定，脱离文档流**/
-    width:100%;/**不要轻易用，会超出平面**/
+    /** padding: 20px 16px 20px 16px;上右下左**/
+    padding: 20px 0 20px 0;
+    /**使topnavbar不超过平面范围**/
+    position: fixed;
+    top: 0;
+    left: 0;
+    /**这三行使topnavbar相对于平面固定，脱离文档流**/
+    width: 100%;
+    /**不要轻易用，会超出平面**/
+    transition: all 0.5s;
+    color: #B7B7B7;
 }
-.topNavBar-inner{
-    padding: 0 16px;/**topnavbar左右间距，由于tnb浮动之后不能有左右间距，如果有加上宽度会超过body宽度，所以新加一个div设置间距**/
+
+.topNavBar.sticky {
+    background: white;
+    padding: 10px 0;
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    color: #3d4451;
 }
-.topNavBar nav{
-    padding-top:4px;
-    padding-bottom:4px;
+
+.topNavBar-inner {
+    padding: 0 16px;
+    /**topnavbar左右间距，由于tnb浮动之后不能有左右间距，如果有加上宽度会超过body宽度，所以新加一个div设置间距**/
 }
-.topNavBar nav>ul{
-    list-style:none; 
-    margin:0;
-    padding:0; 
+
+.topNavBar nav {
+    padding-top: 5px;
+    padding-bottom: 4px;
 }
-.topNavBar nav>ul>li{
-    margin-left: 17px;/**间距**/
+
+.topNavBar nav>ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.topNavBar nav>ul>li {
+    margin-left: 17px;
+    /**间距**/
     margin-right: 17px;
-    float:left; 
+    float: left;
+    position: relative;
 }
-.topNavBar nav>ul>li>a{
+
+.topNavBar nav>ul>li>a {
     font-size: 12px;
-    color:#B7B7B7;
-    text-decoration: none; /**下划线**/
-    font-weight: bold;/**字体加粗**/
-    border-top:3px solid transparent;/**使导航处于居中**/
-    border-bottom:3px solid transparent;/**一开始a标签就有透明色下划线,防止鼠标悬停抖动**/
-    padding-top:5px;
-    padding-bottom:5px;
-    display:block;/**解决li没有把a包住的问题(a高度大于li高度)**/
+    color: inherit;
+    text-decoration: none;
+    /**下划线**/
+    font-weight: bold;
+    /**字体加粗**/
+    border-top: 3px solid transparent;
+    /**使导航处于居中**/
+    border-bottom: 3px solid transparent;
+    /**一开始a标签就有透明色下划线,防止鼠标悬停抖动**/
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: block;
+    position: relative;
+    /**解决li没有把a包住的问题(a高度大于li高度)**/
 }
-.topNavBar nav>ul>li>a:hover{/**当鼠标悬停**/
-    border-bottom:3px solid #e06567;/**红色下划线**/
+
+.topNavBar nav>ul>li.active>a::after {
+    /**当鼠标悬停**/
+    /**border-bottom:3px solid #e06567;红色下划线**/
+    content: '';
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #e06567;
+    height: 3px;
+    animation: menuSlide 0.3s;
 }
-.topNavBar .logo{
-    font-size:24px;
-    font-family:"Arial Black";
-    padding-top:3px;
-    padding-bottom:4px; /**将card的高度从33px补到40**/
+
+@keyframes menuSlide {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
 }
-.topNavBar .logo .rs{
-    margin-right:4px;
-    color:#E6686A;
+
+.topNavBar .submenu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    color: #3d4451;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
-.topNavBar .logo .card{
-    color:#9A9DA2;
+
+.topNavBar li.active>.submenu {
+    display: block;
+    animation: submenuSlide 0.3s;
 }
-.banner{
-    height:515px;
-    background-image:url(./img/rs-cover.jpg);
+
+@keyframes submenuSlide {
+    0% {
+        margin-right: 100%;
+    }
+    100% {
+        margin-right: 0;
+    }
+}
+
+.topNavBar .submenu>li {
+    white-space: nowrap;
+    padding: 5px 10px;
+    /**不换行**/
+}
+
+.topNavBar .logo {
+    font-size: 24px;
+    font-family: "Arial Black";
+    padding-top: 3px;
+    padding-bottom: 4px;
+    /**将card的高度从33px补到40**/
+}
+
+.topNavBar .logo .rs {
+    margin-right: 4px;
+    color: #E6686A;
+}
+
+.topNavBar .logo .card {
+    color: #9A9DA2;
+}
+
+.banner {
+    height: 515px;
+    background-image: url(./img/rs-cover.jpg);
     border: 1px;
-    background-position: center center;/**居中**/
-    background-size: cover;/**盖住所有区域，按比例缩放**/
+    background-position: center center;
+    /**居中**/
+    background-size: cover;
+    /**盖住所有区域，按比例缩放**/
 }
-.banner .mask{
-    height:515px;
-    background:rgba(0,0,0,0.8);/**黑色透明**/
+
+.banner .mask {
+    height: 515px;
+    background: rgba(0, 0, 0, 0.8);
+    /**黑色透明**/
 }
-.userCard{
-    border:1px solid red;/**中间大框**/
-    max-width:940px;/**最大宽度不能宽过940**/
+
+.userCard {
+    border: 1px solid red;
+    /**中间大框**/
+    max-width: 940px;
+    /**最大宽度不能宽过940**/
     margin-left: auto;
     margin-right: auto;
     background-color: #FFFFFF;
-    box-shadow:0px 1px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.5);
 }
-.userCard .welcome{
+
+.userCard .welcome {
     background: #E6686A;
-    color:white;
-    display: inline-block;/**使span接受设置宽和高**/
-    padding: 4px 16px;/**目前是37*22，宽度差33，左右各给16px padding 上下4px**/
-    line-height: 22px;/**不同机器显示高度可能不同，要明确一下**/
-    position: relative;/**绝对定位**/
-    margin-bottom: 10px;/**hello与名字之间和原版差10px**/
+    color: white;
+    display: inline-block;
+    /**使span接受设置宽和高**/
+    padding: 4px 16px;
+    /**目前是37*22，宽度差33，左右各给16px padding 上下4px**/
+    line-height: 22px;
+    /**不同机器显示高度可能不同，要明确一下**/
+    position: relative;
+    /**绝对定位**/
+    margin-bottom: 10px;
+    /**hello与名字之间和原版差10px**/
     /**width: 70px;
     height: 29px;
     line-height: 29px;竖直居中
     text-align: center;水平居中**/
 }
-.userCard .welcome .triangle{ 
-    display: block;;
-    border:10px solid transparent;
-    width: 0px; 
-    height: 0px;   
-    border-left-color:#E6686A;
+
+.userCard .welcome .triangle {
+    display: block;
+    ;
+    border: 10px solid transparent;
+    width: 0px;
+    height: 0px;
+    border-left-color: #E6686A;
     border-top-width: 0px;
-    position: absolute;/**绝对定位，脱离文档流，相对于窗口定位，相对于祖先中的第一个position-relative定位**/
-    top:100%;/**三角形最上面的线的高度是百分之百**/
-    left:4px;
+    position: absolute;
+    /**绝对定位，脱离文档流，相对于窗口定位，相对于祖先中的第一个position-relative定位**/
+    top: 100%;
+    /**三角形最上面的线的高度是百分之百**/
+    left: 4px;
 }
-.userCard .picture{
+
+.userCard .picture {
     float: left;
 }
-.userCard .text{
+
+.userCard .text {
     float: left;
     margin-left: 65px;
-    width:470px;/**分割线长度**/
+    width: 470px;
+    /**分割线长度**/
 }
-.userCard .text h1{
-    margin-top: 18px;/**名字和hello之间的高度和原版差18px**/
+
+.userCard .text h1 {
+    margin-top: 18px;
+    /**名字和hello之间的高度和原版差18px**/
 }
-.userCard .text hr{
-    margin: 20px 0;/**这是我的网页和线与原版差20px**/
+
+.userCard .text hr {
+    margin: 20px 0;
+    /**这是我的网页和线与原版差20px**/
 }
-.userCard .pictureAndText{
+
+.userCard .pictureAndText {
     padding: 50px;
 }
+
 .userCard dl dt,
-.userCard dl dd{
-    float:left;
+.userCard dl dd {
+    float: left;
     /**width:50%;自动换行**/
-    padding:5px 0;
+    padding: 5px 0;
 }
-.userCard dl dt{
+
+.userCard dl dt {
     width: 30%;
     font-weight: bold;
 }
-.userCard dl dd{
-    width:70%;
+
+.userCard dl dd {
+    width: 70%;
     color: #9da0a7;
 }
-.userCard>footer.media{
+
+.userCard>footer.media {
     background: #E6686A;
     text-align: center;
 }
-.userCard svg{
+
+.userCard svg {
     width: 30px;
     height: 30px;
     fill: white;
-    vertical-align: top;/**上下间距保持一样**/
+    vertical-align: top;
+    /**上下间距保持一样**/
 }
-.userCard>footer.media>a{
+
+.userCard>footer.media>a {
     display: inline-block;
-    border-radius: 50%;/**把边框变成圆的**/
+    border-radius: 50%;
+    /**把边框变成圆的**/
     width: 40px;
     line-height: 30px;
     padding: 5px 0;
     margin: 16px 16px;
-
 }
-.userCard>footer.media>a:hover{
+
+.userCard>footer.media>a:hover {
     background: #CF5D5F;
 }
-body>main{
+
+body>main {
     margin-top: -340px;
 }
-body>main .downloadresume-wrapper{
+
+body>main .downloadresume-wrapper {
     text-align: center;
 }
-body>main .downloadresume{
+
+body>main .downloadresume {
     font-size: 14px;
     line-height: 16px;
     padding: 21px 55px;
     border: 1px solid #CDCFF1;
     background: #EFEFEF;
     display: inline-block;
-    border-radius: 2px;/**圆角**/
-    color:#3D4451;
+    border-radius: 2px;
+    /**圆角**/
+    color: #3D4451;
     font-weight: bold;
     margin: 32px 0;
-    transition: box-shadow 0.3s;/**添加阴影过渡**/
+    transition: box-shadow 0.3s;
+    /**添加阴影过渡**/
 }
-body>main .downloadresume:hover{
-    box-shadow:0px 4px 13px 0px rgba(0,0,0,0.2);
+
+body>main .downloadresume:hover {
+    box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.2);
 }
-.selfintroduction{
-    max-width:940px;
+
+.selfintroduction {
+    max-width: 940px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -210,20 +350,16 @@ body>main .downloadresume:hover{
     line-height: 1.8;
     font-size: 18px;
 }
-section.skills,section.portfolio{
-    max-width:940px;
+
+section.skills,
+section.portfolio {
+    max-width: 940px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 60px;
 }
-section.skills >h2{
-    text-align: center;
-    color: #3d4451;
-    font-size: 34px;
-    line-height: 1.2;
-    font-weight: 600;
-}
-section.portfolio >h2{
+
+section.skills>h2 {
     text-align: center;
     color: #3d4451;
     font-size: 34px;
@@ -231,93 +367,124 @@ section.portfolio >h2{
     font-weight: 600;
 }
 
-section.skills h3{
+section.portfolio>h2 {
+    text-align: center;
+    color: #3d4451;
+    font-size: 34px;
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+section.skills h3 {
     font-size: 14px;
     line-height: 1.1;
     padding-right: 40px;
 }
-section.skills >ol{
-    background:white;
-    box-shadow:0px 1px 5px 0px rgba(0,0,0,0.5);
+
+section.skills>ol {
+    background: white;
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.5);
     padding: 42px 50px 10px;
     margin-top: 30px;
 }
-section.skills >ol >li{
+
+section.skills>ol>li {
     float: left;
     width: 48%;
-    box-sizing: border-box;/**为了让paddingright有效，左右两个进度条之间有间隔**/
+    box-sizing: border-box;
+    /**为了让paddingright有效，左右两个进度条之间有间隔**/
     /**padding-right: 40px;**/
 }
-section.skills >ol >li:nth-child(even){/**选中一些子元素，even表示偶数**/
+
+section.skills>ol>li:nth-child(even) {
+    /**选中一些子元素，even表示偶数**/
     float: right;
 }
-section.skills .progressbar{
+
+section.skills .progressbar {
     height: 3px;
     background: #FAE1E1;
     border-radius: 2px;
     margin: 4px 0 40px;
 }
-section.skills .progressbar> .progress{
+
+section.skills .progressbar>.progress {
     background: #E6686A;
     width: 50%;
     height: 3px;
     border-radius: 2px;
 }
-section.portfolio{
+
+section.portfolio {
     text-align: center;
     margin-bottom: 100px;
 }
-section.portfolio >nav{
-    text-align: center;/**居中左边会有空隙**/
+
+section.portfolio>nav {
+    text-align: center;
+    /**居中左边会有空隙**/
     display: inline-block;
     margin-top: 32px;
 }
-section.portfolio >nav >ol{
+
+section.portfolio>nav>ol {
     margin: 0 auto;
     display: inline-block;
-    vertical-align: top;/**+inline-block就要+这个**/
+    vertical-align: top;
+    /**+inline-block就要+这个**/
 }
-section.portfolio >nav >ol >li{
+
+section.portfolio>nav>ol>li {
     float: left;
     margin-left: 40px;
     cursor: pointer;
 }
+
+
 /**section.portfolio >nav >ol >li:nth-child(1){解决上面有空隙的问题
     margin-left: 0;
 }**/
-section.portfolio >nav >ol >li:first-child{/**解决上面有空隙的问题**/
+
+section.portfolio>nav>ol>li:first-child {
+    /**解决上面有空隙的问题**/
     margin-left: 0;
 }
-section.portfolio >nav .bar{
+
+section.portfolio>nav .bar {
     height: 5px;
     background: white;
     margin-top: 5px;
     margin-bottom: 28px;
     border-radius: 2px;
 }
-section.portfolio >nav .bar-inner{
+
+section.portfolio>nav .bar-inner {
     height: 100%;
     background: #E6686A;
     border-radius: 2px;
     transition: all 0.3s;
 }
-section.portfolio >nav .bar.state-1 .bar-inner{
+
+section.portfolio>nav .bar.state-1 .bar-inner {
     margin-left: 0;
     width: 50px;
 }
-section.portfolio >nav .bar.state-2 .bar-inner{
+
+section.portfolio>nav .bar.state-2 .bar-inner {
     margin-left: 65px;
     width: 50px;
 }
-section.portfolio >nav .bar.state-3 .bar-inner{
+
+section.portfolio>nav .bar.state-3 .bar-inner {
     margin-left: 140px;
     width: 96px;
 }
-section.portfolio .works{
+
+section.portfolio .works {
     position: relative;
-    
 }
-section.portfolio .works >.big,
-section.portfolio .works >.small{
+
+section.portfolio .works>.big,
+section.portfolio .works>.small {
     position: absolute;
 }
