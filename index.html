@@ -220,6 +220,8 @@
     <script src="./js/slide-up.js"></script>
     <script src="./js/sticky.js"></script>
     <script src="./js/smoothly-navigation.js"></script> -->
+    <script src="./js/message.js"></script>
+
     <script>
         var mySwiper = new Swiper('.swiper-container', {
             // Optional parameters
@@ -256,25 +258,27 @@
                 let messageList = document.querySelector('#messageList')
                 messageList.appendChild(li)
             })
+        })
 
-            let myForm = document.querySelector('#postMessageForm')
-            myForm.addEventListener('submit', function(e) {
-                e.preventDefault()
-                let content = myForm.querySelector('input[name=content]').value
-                let name = myForm.querySelector('input[name=name]').value
-                var Message = AV.Object.extend('Message')
-                var message = new Message()
-                message.save({
-                    'name': name,
-                    'content': content
-                }).then(function(Object) {
-                    window.location.reload()
-                    console.log('object')
-                })
+        let myForm = document.querySelector('#postMessageForm')
+        myForm.addEventListener('submit', function(e) {
+            e.preventDefault()
+            let content = myForm.querySelector('input[name=content]').value
+            let name = myForm.querySelector('input[name=name]').value
+            var Message = AV.Object.extend('Message')
+            var message = new Message()
+            message.save({
+                'name': name,
+                'content': content
+            }).then(function(Object) {
+                let li = document.createElement('li')
+                li.innerText = `${object.attributes.name}: ${object.attributes.content}`
+                let messageList = document.querySelector('#messageList')
+                messageList.appendChild(li)
+                myForm.querySelector('input[name=content]').value = ''
+                console.log(object)
             })
-
-
-        });
+        })
     </script>
     <script>
         setTimeout(function() {
