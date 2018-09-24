@@ -27,7 +27,7 @@ myForm.addEventListener('submit', function(e) {
     message.save({
         'name': name,
         'content': content
-    }).then(function(Object) {
+    }).then(function(object) {
         let li = document.createElement('li')
         li.innerText = `${object.attributes.name}: ${object.attributes.content}`
         let messageList = document.querySelector('#messageList')
